@@ -110,14 +110,11 @@ def isGameWon():
     
     return 0 #if nobody won just return 0
 
-
-
 gameState = 0
 while gameState == 0:
     printGrid()
     placeToken()
     gameState = isGameWon()
-
 
 if gameState == 1:
     printGrid()
@@ -125,4 +122,3 @@ if gameState == 1:
 elif gameState == 2:
     printGrid()
     print('Good Job Player 2!')
-
