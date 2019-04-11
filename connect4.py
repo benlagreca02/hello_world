@@ -1,7 +1,11 @@
 #declare and make the grid that were gonna beat the shit out of, and a bool to see if it is player 1's turn
+#turn number isn't really used in this version but that may change probbaly not though
 turnNumber = 0
 isP1Turn = True
+gameState = 0
 
+#remember 0, 0 is top left corner, and 6, 7  is bottom right
+#coords would be (Y,X)
 grid = [
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
@@ -11,22 +15,35 @@ grid = [
     [0, 0, 0, 0, 0, 0, 0]
 ]
 
+
+def togglePlayerTurn():
+    #wish i knew why this didn't work isP1Turn = not isP1Turn
+    if isP1Turn:
+        isP1Turn = False
+    else:
+        isP1Turn = True
+
+
+#a gift form our savior stack overflow
 def printGrid():
     for row in grid:
         print('  '.join([str(elem) for elem in row]))
     return
 
+
 def placeToken(): #ask player for column input (0-6)
     global turnNumber
     global isP1Turn
     turnNumber += 1
-    #player 1 is red, player one goes on odd rounds
-    if(turnNumber%2 == 0):
+    
+    if not isP1Turn:
+        #player 2 is anything even, so 2nd turn, 4th, 6th etc
         currentToken = 'Y'
-        isP1Turn = False
+        togglePlayerTurn()
     else:
+        #player 1 all other cases
         currentToken = 'R'
-        isP1Turn = True
+        togglePlayerTurn()
     
     print('Turn Number', turnNumber)
     while True:
@@ -36,6 +53,7 @@ def placeToken(): #ask player for column input (0-6)
             print("That's not even number you idiot")
         else:
             #If the current column has something at the bottom, go up one and check, if its open place it
+            #this can be optimized with a For loop, ill worry about making it pretty once the whole thing works (maybe)
             if (0 <= playerChoice <=6): 
                 if not grid[5][playerChoice]==0:
                     if not grid[4][playerChoice]==0:
@@ -69,6 +87,7 @@ def placeToken(): #ask player for column input (0-6)
                 print('Bomb has been planted')
             else:
                print('Out of range. Try again')
+
 
 def isGameWon():
     x = 0
@@ -110,7 +129,7 @@ def isGameWon():
     
     return 0 #if nobody won just return 0
 
-gameState = 0
+
 while gameState == 0:
     printGrid()
     placeToken()
