@@ -52,49 +52,29 @@ def placeToken(): #ask player for column input (0-6)
     while True:
         try: #get input
            playerChoice = int(input('Pick Column (0-6): '))
-        except ValueError:
+        except ValueError: #when there is an error
             print("That's not even number you idiot")
-        else:
-            #If the current column has something at the bottom, go up one and check, if its open place it
-            #this can be optimized with a For loop, ill worry about making it pretty once the whole thing works (maybe)
-            if (0 <= playerChoice <=6): 
-                if not grid[5][playerChoice]==0:
-                    if not grid[4][playerChoice]==0:
-                        if not grid[3][playerChoice]==0:
-                            if not grid[2][playerChoice]==0:
-                                if not grid[1][playerChoice]==0:
-                                    if not grid[0][playerChoice]==0:
-                                            print("That Row is Full!")
-                                    else:
-                                        grid[0][playerChoice] = currentToken
-                                        break
-                                else:
-                                    grid[1][playerChoice] = currentToken
-                                    break
-                            else:
-                                grid[2][playerChoice] = currentToken
-                                break
-                        else:
-                            grid[3][playerChoice] = currentToken    
-                            break
+        else:   #if it is an integer continue
+            if ( 0 <= playerChoice <=6):
+                for i in range(5, -1, -1):
+                    if grid[i][playerChoice]==0:
+                        grid[i][playerChoice] = currentToken
+                        break
                     else:
-                        grid[4][playerChoice] = currentToken
-                        break                                     
-                else:
-                    grid[5][playerChoice] = currentToken
-                    break         
-            #a few easter eggs for if you input funny numbers
-            elif playerChoice == 69:
-                print("nice but please input a number in the range 0-6: ")
-            elif playerChoice == 7355608:
-                print('Bomb has been planted')
-            else:
-               print('Out of range. Try again')
+                        if not grid[0][playerChoice]==0:
+                            print("That Row is Full!")
+                            break
+                break
 
+            else:
+                print("that number is out of range")
+            
 
 def isGameWon():
     x = 0
     y = 0 
+    #~~~~~~~~~~~~~~~~~DIAGONAL TESTING~~~~~~~~~~~~~~~~~
+    #this is where it would go...IF I HAD ANY
     #~~~~~~~~~~~~~~~~~VERTICAL TESTING~~~~~~~~~~~~~~~~~
     for x in range(7):
         for y in range(6):
