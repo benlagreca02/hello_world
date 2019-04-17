@@ -20,6 +20,7 @@ grid = [
 
 def togglePlayerTurn():
     #wish i knew why this didn't work isP1Turn = not isP1Turn
+    global isP1Turn
     if isP1Turn:
         isP1Turn = False
     else:
@@ -98,19 +99,19 @@ def isGameWon():
     for x in range(7):
         for y in range(6):
             if grid[y][x] == 'R':
-                redTally += 1 #start counting when a R is detected
-                if redTally == 4: #once the limit is reached return 2 and stop
+                redTally += 1       #start counting when a R is detected
+                if redTally == 4:   #once the limit is reached return 2 and stop
                     return 1
             else:
-                redTally = 0 #once stream broken, reset counter
-            redTally = 0 #reset after checking a column
+                redTally = 0        #once stream broken, reset counter
             if grid[y][x] == 'Y':
-                yellowTally += 1 #start counting when a R is detected
-                if yellowTally == 4: #once the limit is reached return 2 and stop
+                yellowTally += 1    #start counting when a R is detected
+                if yellowTally == 4:#once the limit is reached return 2 and stop
                     return 2
             else:
                     yellowTally = 0 #once stream broken, reset counter
-        yellowTally = 0 #reset after checking a column
+        redTally = 0                #reset after checking a column
+        yellowTally = 0 
     #~~~~~~~~~~~~~~~~HORIZONTAL TESTING~~~~~~~~~~~~~~~~
     for y in range(6):
         for x in range(7):
@@ -120,15 +121,15 @@ def isGameWon():
                     return 1
             else:
                 redTally = 0
-        redTally = 0 
-        if grid[y][x] == 'Y':
+        
+            if grid[y][x] == 'Y':
                 yellowTally += 1
                 if yellowTally == 4:
                     return 2
-        else:
-            yellowTally = 0 
+            else:
+                yellowTally = 0 
         yellowTally = 0
-    
+        redTally = 0 
     return 0 #if nobody won just return 0
 
 
@@ -136,10 +137,12 @@ while gameState == 0:
     printGrid()
     placeToken()
     gameState = isGameWon()
-
-if gameState == 1:
-    printGrid()
-    print('Good Job Player 1!')
-elif gameState == 2:
-    printGrid()
-    print('Good Job Player 2!')
+    if gameState == 1:
+        printGrid()
+        print('Good Job Player 1!')
+        break
+    elif gameState == 2:
+        printGrid()
+        print('Good Job Player 2!')
+        break
+quit
