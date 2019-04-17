@@ -1,3 +1,5 @@
+#THIS IS A TEST
+
 #declare and make the grid that were gonna beat the shit out of, and a bool to see if it is player 1's turn
 #turn number isn't really used in this version but that may change probbaly not though
 turnNumber = 0
