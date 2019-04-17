@@ -1,5 +1,3 @@
-#THIS IS A TEST
-
 #declare and make the grid that were gonna beat the shit out of, and a bool to see if it is player 1's turn
 #turn number isn't really used in this version but that may change probbaly not though
 turnNumber = 0
@@ -49,7 +47,10 @@ def placeToken(): #ask player for column input (0-6)
         togglePlayerTurn()
     
     print('Turn Number', turnNumber)
-    while True:
+
+    dontBreakWhile = False
+    hasntPicked = True
+    while hasntPicked:
         try: #get input
            playerChoice = int(input('Pick Column (0-6): '))
         except ValueError: #when there is an error
@@ -59,13 +60,12 @@ def placeToken(): #ask player for column input (0-6)
                 for i in range(5, -1, -1):
                     if grid[i][playerChoice]==0:
                         grid[i][playerChoice] = currentToken
-                        break
+                        hasntPicked = False #they have picked and the procedure is done
+                        break #breaks from for loop once token is placed
                     else:
                         if not grid[0][playerChoice]==0:
                             print("That Row is Full!")
-                            break
-                break
-
+                            break   #breaks from for loop when row is full
             else:
                 print("that number is out of range")
             
@@ -76,6 +76,8 @@ def isGameWon():
     #~~~~~~~~~~~~~~~~~DIAGONAL TESTING~~~~~~~~~~~~~~~~~
     #this is where it would go...IF I HAD ANY
     #~~~~~~~~~~~~~~~~~VERTICAL TESTING~~~~~~~~~~~~~~~~~
+    redTally = 0
+    yellowTally = 0
     for x in range(7):
         for y in range(6):
             if grid[y][x] == 'R':
