@@ -6,6 +6,7 @@ gameState = 0
 
 #remember 0, 0 is top left corner, and 6, 7  is bottom right
 #coords would be (Y,X)
+
 grid = [
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
@@ -14,6 +15,11 @@ grid = [
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0]
 ]
+
+
+def returnIsP1Turn():
+    global isP1Turn
+    return isP1Turn
 
 
 def togglePlayerTurn():
@@ -34,10 +40,9 @@ def printGrid():
 
 def placeToken(): #ask player for column input (0-6)
     global turnNumber
-    global isP1Turn
     turnNumber += 1
     
-    if not isP1Turn:
+    if not returnIsP1Turn():
         #player 2 is anything even, so 2nd turn, 4th, 6th etc
         currentToken = 'Y'
         togglePlayerTurn()
@@ -48,7 +53,6 @@ def placeToken(): #ask player for column input (0-6)
     
     print('Turn Number', turnNumber)
 
-    dontBreakWhile = False
     hasntPicked = True
     while hasntPicked:
         try: #get input
@@ -65,7 +69,7 @@ def placeToken(): #ask player for column input (0-6)
                     else:
                         if not grid[0][playerChoice]==0:
                             print("That Row is Full!")
-                            break   #breaks from for loop when row is full
+                            break   #breaks from for loop when row is full, to request new value
             else:
                 print("that number is out of range")
             
