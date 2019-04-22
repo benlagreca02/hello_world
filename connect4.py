@@ -56,11 +56,12 @@ def placeToken(): #ask player for column input (0-6)
     hasntPicked = True
     while hasntPicked:
         try: #get input
-           playerChoice = int(input('Pick Column (0-6): '))
+           playerChoice = int(input('Pick Column (1-7): '))
         except ValueError: #when there is an error
             print("That's not even number you idiot")
         else:   #if it is an integer continue
-            if ( 0 <= playerChoice <=6):
+            if (1 <= playerChoice <= 7):
+                playerChoice -= 1 #this is to make the user input make more sense
                 for i in range(5, -1, -1):
                     if grid[i][playerChoice]==0:
                         grid[i][playerChoice] = currentToken
@@ -77,8 +78,45 @@ def placeToken(): #ask player for column input (0-6)
 def isGameWon():
     x = 0
     y = 0 
-    #~~~~~~~~~~~~~~~~~DIAGONAL TESTING~~~~~~~~~~~~~~~~~
-    #this is where it would go...IF I HAD ANY
+    #A gift from our savior kris
+    #~~~~~~~~~~~~~~~~~DIAGONAL-UP TESTING~~~~~~~~~~~~~~~~~
+    for x in range(4):
+        for y in range(5,2,-1):
+            redTally = 0
+            yellowTally = 0
+            for i in range(4):
+
+                if grid[y-i][x+i] == 'R':
+                    redTally += 1       #start counting when a R is detected
+                    if redTally == 4:   #once the limit is reached return 2 and stop
+                        return 1
+                else:
+                    redTally = 0        #once stream broken, reset counter
+                if grid[y-i][x+i] == 'Y':
+                    yellowTally += 1    #start counting when a R is detected
+                    if yellowTally == 4:#once the limit is reached return 2 and stop
+                        return 2
+                else:
+                    yellowTally = 0     #once stream broken, reset counter
+    #~~~~~~~~~~~~~~~~~DIAGONAL-DOWN TESTING~~~~~~~~~~~~~~~~~
+    for x in range(4):
+        for y in range(3):
+            redTally = 0
+            yellowTally = 0
+            for i in range(4):
+
+                if grid[y+i][x+i] == 'R':
+                    redTally += 1       #start counting when a R is detected
+                    if redTally == 4:   #once the limit is reached return 2 and stop
+                        return 1
+                else:
+                    redTally = 0        #once stream broken, reset counter
+                if grid[y+i][x+i] == 'Y':
+                    yellowTally += 1    #start counting when a R is detected
+                    if yellowTally == 4:#once the limit is reached return 2 and stop
+                        return 2
+                else:
+                    yellowTally = 0     #once stream broken, reset counter
     #~~~~~~~~~~~~~~~~~VERTICAL TESTING~~~~~~~~~~~~~~~~~
     redTally = 0
     yellowTally = 0
