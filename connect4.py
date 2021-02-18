@@ -1,5 +1,4 @@
-#declare and make the grid that were gonna beat the shit out of, and a bool to see if it is player 1's turn
-#turn number isn't really used in this version but that may change probbaly not though
+#declare and make the grid that will be used to represent the game board, and a boolean to see if it is player 1's turn
 turnNumber = 0
 isP1Turn = True
 gameState = 0
@@ -23,7 +22,6 @@ def returnIsP1Turn():
 
 
 def togglePlayerTurn():
-    #wish i knew why this didn't work isP1Turn = not isP1Turn
     global isP1Turn
     if isP1Turn:
         isP1Turn = False
@@ -31,7 +29,6 @@ def togglePlayerTurn():
         isP1Turn = True
 
 
-#a gift form our savior stack overflow
 def printGrid():
     for row in grid:
         print('  '.join([str(elem) for elem in row]))
